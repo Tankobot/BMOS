@@ -21,14 +21,3 @@ end
 local scp = term.setCursosPos
 term.clear()
 scp(center[1], center[2])
-
-gui.write("Start?\nTerminate to exit.")
-local event = os.pullEventRaw()
-if event == "terminate" then 
-	os.shutdown()
-else
-	term.clear()
-	scp(1,1)
-	print("Starting BMOS...")
-	sleep(0.1)
-end
