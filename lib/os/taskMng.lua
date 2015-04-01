@@ -66,7 +66,7 @@ local function transfer(...)
 	os.queueEvent("transfer", ...)
 end
 
-taskMng = {
+local task = {
 	current = current, 
 	listGet = listGet,
 	garbage = garbage, 
@@ -83,4 +83,4 @@ taskMng = {
 	transfer = transfer
 }
 
-return taskMng
+return task
