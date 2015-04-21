@@ -3,6 +3,10 @@ Title: Graphical User Interface API
 Description: A generic API that can be used in order to build a simple to complex user interface and handle events associated with such. 
 --]]
 
+assert(term, "The gui library requires the term library to be loaded.")
+
+--Gui object functions. 
+
 local function draw(self) --Redraws the screen including any changes to the gui set. 
 	local term = self.term
 	for id=self.lastid,1,-1 do
@@ -154,9 +158,20 @@ local function drawLayers(...)
 	end
 end
 
+local function center()
+	local x = term.getSize()/2
+	local y = term.getSize()/2
+	x = math.floor(x)
+	y = math.floor(y)
+	return x, y
+end
+
+--[[]]--
+
 local gui = {
 	createSet = createSet,
-	drawLayers = drawLayers 
+	drawLayers = drawLayers,
+	center = center
 }
 
 return gui
