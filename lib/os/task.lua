@@ -32,7 +32,7 @@ local function addR(func, name, ...)
 	coroutine.yield("admin", "addR", func, name, ...)
 end
 
-nativeExit = exit
+local nativeExit = exit
 
 local function exit()
 	coroutine.yield("admin", "exit")
@@ -42,13 +42,13 @@ local function event(...)
 	event = {...}
 end
 
-nativeLoadstring = loadstring 
+local nativeLoadstring = loadstring 
 
 local function loadstring(block)
 	coroutine.yield("admin", "loadstring", block)
 end
 
-nativeError = error
+local nativeError = error
 
 local function error(message)
 	coroutine.yield("admin", "error", message)
@@ -66,7 +66,7 @@ local function transfer(...)
 	os.queueEvent("transfer", ...)
 end
 
-taskMng = {
+local task = {
 	current = current, 
 	listGet = listGet,
 	garbage = garbage, 
@@ -83,4 +83,4 @@ taskMng = {
 	transfer = transfer
 }
 
-return taskMng
+return task
