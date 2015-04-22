@@ -2,7 +2,7 @@
 
 local arg = {...}
 if arg[2] then 
-	arg[2] = "/tree/v"..arg[2]
+	arg[2] = "/tree/"..arg[2]
 else
 	arg[2] = ""
 end
