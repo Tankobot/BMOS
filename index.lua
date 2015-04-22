@@ -32,8 +32,8 @@ local BMOS = {
 		"trampoline.lua",
 	},
 	"index.lua",
-	"install.lua",
 	"README.md",
+	"update.lua",
 }
 
 return BMOS, PATH
