@@ -23,9 +23,7 @@ local BMOS = {
 		"taskManager",
 		"trampoline.lua",
 	},
-	"index.lua",
 	"README.md",
-	"update.lua",
 	"end",
 }
 
