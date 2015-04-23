@@ -9,10 +9,16 @@ local download
 local arg = {...}
 local place
 local names = {}
+arg[1] = arg[1] or "master"
 
-print("Retrieving index for requested version of BMOS, or master branch.")
-assert(http.get(_PATH..arg[1].."/index.lua"), "Failed to retrieve index for "..arg[1]..".")
+print("Retrieving file index...")
+local indexHttp = http.get(_PATH..arg[1].."/index.lua")
+assert(indexHttp, "Failed to retrieve index for "..arg[1]..".")
 print("Retrieved index for "..arg[1]..".")
+local index = io.open(shell.dir().."index.lua", "w")
+index:write(indexHttp:readAll())
+index:close()
+indexHttp:close()
 
 assert(http, "The updater requires the 'http' api in order to download necessary files.")
 
@@ -46,6 +52,7 @@ local function http2drive(path, names)
 			local file = io.open(names[event[2]], "w")
 			file:write(event[3]:readAll())
 			file:close()
+			event[3]:close()
 		elseif event[1] == "http_failure" then
 			print("Failed to download file at '"..names[event[2]].."'.")
 		elseif event[1] == "end" then
@@ -56,7 +63,7 @@ end
 
 local BMOS = loadfile("index.lua")()
 
-if not arg[2] then arg[2] = shell.dir() end
+arg[2] = arg[2] or shell.dir()
 
 download(BMOS, "") 
 http2drive(arg[2], names)
