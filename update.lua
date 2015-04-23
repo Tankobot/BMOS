@@ -10,6 +10,10 @@ local arg = {...}
 local place
 local names = {}
 
+print("Retrieving index for requested version of BMOS, or master branch.")
+assert(http.get(_PATH..arg[1].."/index.lua"), "Failed to retrieve index for "..arg[1]..".")
+print("Retrieved index for "..arg[1]..".")
+
 assert(http, "The updater requires the 'http' api in order to download necessary files.")
 
 local function download(dirTable, currentPath)
