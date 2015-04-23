@@ -29,4 +29,4 @@ local BMOS = {
 	"end",
 }
 
-return BMOS, PATH
+return BMOS
