@@ -23,7 +23,7 @@ indexHttp:close()
 assert(http, "The updater requires the 'http' api in order to download necessary files.")
 
 local function download(dirTable, currentPath)
-	if not dirTable then dirTable = {} end
+	dirTable = dirTable or {}
 	for i, v in pairs(dirTable) do
 		if type(v) == "table" then
 			local status, message = pcall(download, v, currentPath..i.."/")
@@ -35,7 +35,7 @@ local function download(dirTable, currentPath)
 				os.queueEvent("end")
 				return true
 			else
-				place = _PATH..arg[1]..currentPath..v
+				local place = _PATH..arg[1]..currentPath..v
 				http.request(place)
 				names[place] = currentPath..v
 			end
