@@ -158,7 +158,8 @@ local function drawLayers(...)
 	end
 end
 
-local function center()
+local function center(monitor)
+	local term = monitor or term
 	local x = term.getSize()/2
 	local y = term.getSize()/2
 	x = math.floor(x)
