@@ -46,7 +46,7 @@ local function add(self, x, y, l, h) --Allows for the addition of a new gui obje
 		
 		bg = colors.white,
 		fg = colors.black,
-		cc = colors.yellow,
+		cc = colors.white,
 		text = "",
 		tx = 1,
 		ty = 1,
@@ -64,9 +64,15 @@ local function rm(self, id) --Allows for the removal of a gui object.
 end
 
 local function set(self, id, bg, fg, cc) --Allows for the setting of a gui object. 
-	self.obj[id].bg = bg
-	self.obj[id].fg = fg
-	self.obj[id].cc = cc --CC stands for Click Color. 
+	assert(type(id) == "number", "Expected number id arg#1.")
+	local pos = self.obj[id]
+	bg = bg or pos.bg --Set color defaults.
+	fg = fg or pos.fg
+	cc = cc or pos.cc
+	
+	pos.bg = bg
+	pos.fg = fg
+	pos.cc = cc --CC stands for Click Color. 
 end
 
 local function setText(self, id, text, x, y)
