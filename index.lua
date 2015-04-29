@@ -1,13 +1,5 @@
 --File index 
 
-local arg = {...}
-if arg[2] then 
-	arg[2] = "/tree/"..arg[2]
-else
-	arg[2] = ""
-end
-local PATH = "Tankobot/BMOS/"..arg[1]..arg[2]
-
 local BMOS = {
 	data = {
 		startup = {
@@ -19,6 +11,7 @@ local BMOS = {
 			"argSorter.lua",
 			"codec.lua",
 			"gui.lua",
+			"lib.lua",
 			"net.lua",
 			"task.lua",
 		},
@@ -31,9 +24,8 @@ local BMOS = {
 		"taskManager",
 		"trampoline.lua",
 	},
-	"index.lua",
 	"README.md",
-	"update.lua",
+	"end",
 }
 
-return BMOS, PATH
+return BMOS

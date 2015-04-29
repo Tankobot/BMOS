@@ -46,7 +46,7 @@ local function add(self, x, y, l, h) --Allows for the addition of a new gui obje
 		
 		bg = colors.white,
 		fg = colors.black,
-		cc = colors.yellow,
+		cc = colors.white,
 		text = "",
 		tx = 1,
 		ty = 1,
@@ -64,9 +64,15 @@ local function rm(self, id) --Allows for the removal of a gui object.
 end
 
 local function set(self, id, bg, fg, cc) --Allows for the setting of a gui object. 
-	self.obj[id].bg = bg
-	self.obj[id].fg = fg
-	self.obj[id].cc = cc --CC stands for Click Color. 
+	assert(type(id) == "number", "Expected number id arg#1.")
+	local pos = self.obj[id]
+	bg = bg or pos.bg --Set color defaults.
+	fg = fg or pos.fg
+	cc = cc or pos.cc
+	
+	pos.bg = bg
+	pos.fg = fg
+	pos.cc = cc --CC stands for Click Color. 
 end
 
 local function setText(self, id, text, x, y)
@@ -94,6 +100,8 @@ local function clear(self) --Allows for the removal of all gui objects in a gui 
 end
 
 local function checkSet(self, event, wait) 
+	assert(type(event) == "table", "Event is not a table.")
+	wait = wait or 0.5
 	for i=self.lastid, 1, -1 do 
 		local obj = self.obj[i]
 		if obj then
@@ -108,6 +116,7 @@ local function checkSet(self, event, wait)
 end
 
 local function checkTime(self, alarm)
+	assert(type(alarm) == "table", "Event/alarm is not a table.")
 	local timer = alarm[2]
 	local id = self.timeID[timer]
 	if self.obj[id] then
@@ -158,7 +167,15 @@ local function drawLayers(...)
 	end
 end
 
-local function center()
+local function checkLayers(event, ...)
+	local arg = {...}
+	for i=#arg, 1, -1 do
+		checkSet(arg[1], event)
+	end
+end
+
+local function center(monitor)
+	local term = monitor or term
 	local x = term.getSize()/2
 	local y = term.getSize()/2
 	x = math.floor(x)
