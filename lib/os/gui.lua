@@ -167,6 +167,13 @@ local function drawLayers(...)
 	end
 end
 
+local function checkLayers(event, ...)
+	local arg = {...}
+	for i=#arg, 1, -1 do
+		checkSet(arg[1], event)
+	end
+end
+
 local function center(monitor)
 	local term = monitor or term
 	local x = term.getSize()/2
