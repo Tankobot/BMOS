@@ -8,15 +8,16 @@ local _PRE = table.remove(arg)
 local _BIN = arg
 
 local function load(path, ...)
-	local f = loadfile(_PRE..path)
-	if not f then 
-		for i=1, #_BIN do
-			if not f then
-				f = loadfile(_PRE.._BIN[i]..path)
-			else
-				break
-			end
+	local f
+	for i=1, #_BIN do
+		if not f then
+			f = loadfile(_PRE.._BIN[i]..path)
+		else
+			break
 		end
+	end
+	if not f then
+		f = loadfile(_PRE..path)
 	end
 	if not f then
 		error("Library '"..path.."' can not be found.", 0)
