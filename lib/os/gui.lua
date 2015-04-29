@@ -94,6 +94,8 @@ local function clear(self) --Allows for the removal of all gui objects in a gui 
 end
 
 local function checkSet(self, event, wait) 
+	assert(type(event) == "table", "Event is not a table.")
+	wait = wait or 0.5
 	for i=self.lastid, 1, -1 do 
 		local obj = self.obj[i]
 		if obj then
@@ -108,6 +110,7 @@ local function checkSet(self, event, wait)
 end
 
 local function checkTime(self, alarm)
+	assert(type(alarm) == "table", "Event/alarm is not a table.")
 	local timer = alarm[2]
 	local id = self.timeID[timer]
 	if self.obj[id] then
