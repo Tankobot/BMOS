@@ -11,6 +11,7 @@ local BMOS = {
 			"argSorter.lua",
 			"codec.lua",
 			"gui.lua",
+			"lib.lua",
 			"net.lua",
 			"task.lua",
 		},
