@@ -43,7 +43,7 @@ local bgBack = bg:add(1, 1, x, y)
 bg:set(bgBack, colors.lightBlue, nil, colors.lightBlue)
 
 local login = gui.createSet()
-local lgHello = login:add(cx-5, cy-1, cx+6, cy+1)
+local lgHello = login:add(cx-5, cy-1, 12, 3)
 login:set(lgHello, colors.blue, colors.white, colors.blue)
 login:setText(lgHello, version, 2, 2)
 
