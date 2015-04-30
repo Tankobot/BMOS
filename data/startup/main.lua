@@ -44,7 +44,7 @@ bg:set(bgBack, colors.lightBlue, nil, colors.lightBlue)
 
 local login = gui.createSet()
 local lgHello = login:add(cx-5, cy-1, cx+6, cy+1)
-login:set(lgHello, colors.blue, colors.black, colors.blue)
+login:set(lgHello, colors.blue, colors.white, colors.blue)
 login:setText(lgHello, version, 2, 2)
 
 gui.drawLayers(bg, login)
