@@ -4,7 +4,7 @@ Library Loader
 
 local N_load = load
 local arg = {...}
-local _PRE = table.remove(arg)
+local _PRE = table.remove(arg, 1) or ""
 local _BIN = arg
 
 local function load(path, ...)
@@ -31,3 +31,10 @@ local function writeLib(path, info)
 	file:write(info)
 	file:close()
 end
+
+local lib = {
+	load = load,
+	writeLib = writeLib,
+}
+
+return lib
