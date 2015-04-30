@@ -177,7 +177,7 @@ end
 local function center(monitor)
 	local term = monitor or term
 	local x = term.getSize()/2
-	local y = term.getSize()/2
+	local y = ({term.getSize()})[2]/2
 	x = math.floor(x)
 	y = math.floor(y)
 	return x, y
