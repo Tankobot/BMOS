@@ -38,6 +38,7 @@ end
 local function add(self, x, y, l, h) --Allows for the addition of a new gui object into the set. 
 	local id = #self.obj+1
 	local button = {
+		type = "button",
 		id = #self.obj+1,
 		x = x,
 		y = y,
@@ -57,6 +58,29 @@ local function add(self, x, y, l, h) --Allows for the addition of a new gui obje
 	end
 	self.obj[id] = button
 	return id
+end
+
+local function addTextBox(self, x, y, l, h, vertical) --Adds interactive text box to layer.
+	if vertical then 
+		
+	else
+		local button = {
+			type = "textBox",
+			id = #self.obj+1,
+			x = x,
+			y = y,
+			l = l,
+			h = h,
+			
+			bg = colors.white,
+			fg = colors.black,
+			cc = colors.white,
+			text = "",
+			tx = 1,
+			ty = 1,
+			click = false
+		}
+	end
 end
 
 local function rm(self, id) --Allows for the removal of a gui object. 
@@ -112,6 +136,15 @@ local function checkSet(self, event, wait)
 				return true, obj.id
 			end
 		end
+	end
+end
+
+local function checkText(self, event)
+	assert(type(event) == "table", "Event is not a table.")
+	if event[1] == "mouse_click" then
+		
+	elseif event[1] == "key" then
+		
 	end
 end
 
