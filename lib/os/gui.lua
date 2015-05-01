@@ -133,18 +133,10 @@ local function checkSet(self, event, wait)
 				obj.click = true
 				alarm = os.startTimer(wait)
 				self.timeID[alarm] = obj.id
+				--TODO Checking for text boxes. 
 				return true, obj.id
 			end
 		end
-	end
-end
-
-local function checkText(self, event)
-	assert(type(event) == "table", "Event is not a table.")
-	if event[1] == "mouse_click" then
-		
-	elseif event[1] == "key" then
-		
 	end
 end
 
