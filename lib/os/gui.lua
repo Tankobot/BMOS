@@ -105,8 +105,8 @@ end
 local function setText(self, id, text, x, y)
 	local obj = self.obj[id]
 	obj.text = text 
-	obj.tx = x
-	obj.ty = y
+	obj.tx = x or obj.tx or 1
+	obj.ty = y or obj.ty or 1
 end
 
 local function timer(self, id, tID)
