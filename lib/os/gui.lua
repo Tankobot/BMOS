@@ -61,26 +61,29 @@ local function add(self, x, y, l, h) --Allows for the addition of a new gui obje
 end
 
 local function addTextBox(self, x, y, l, h, vertical) --Adds interactive text box to layer.
-	if vertical then 
+	local id = #self.obj+1
+	local textBox = {
+		type = "textBox",
+		vert = vertical
+		id = #self.obj+1,
+		x = x,
+		y = y,
+		l = l,
+		h = h,
 		
-	else
-		local button = {
-			type = "textBox",
-			id = #self.obj+1,
-			x = x,
-			y = y,
-			l = l,
-			h = h,
-			
-			bg = colors.white,
-			fg = colors.black,
-			cc = colors.white,
-			text = "",
-			tx = 1,
-			ty = 1,
-			click = false
-		}
+		bg = colors.white,
+		fg = colors.black,
+		cc = colors.white,
+		text = "",
+		tx = 1,
+		ty = 1,
+		click = false
+	}
+	if #self.obj+1>self.lastid then 
+		self.lastid = #self.obj+1
 	end
+	self.obj[id] = textBox
+	return id
 end
 
 local function rm(self, id) --Allows for the removal of a gui object. 
