@@ -43,9 +43,16 @@ local bgBack = bg:add(1, 1, x, y)
 bg:set(bgBack, colors.lightBlue, nil, colors.lightBlue)
 
 local login = gui.createSet()
-local lgHello = login:add(cx-5, cy-1, 12, 3)
-login:set(lgHello, colors.blue, colors.white, colors.blue)
+local lgHello = login:add(cx-5, cy-3, 12, 3)
+local userFd = login:add(cx-4, cy+1, 10, 1)
+local passFd = login:add(cx-4, cy+3, 10, 1)
+
+login:set(lgHello, colors.blue, colors.white, colors.blue) --Version
 login:setText(lgHello, version, 2, 2)
+login:set(userFd, nil, colors.lightGrey) --User Feed
+login:setText(userFd, "Username")
+login:set(passFd, nil, colors.lightGrey) --Pass Feed
+login:setText(passFd, "Password")
 
 gui.drawLayers(bg, login)
 os.pullEvent("char")
