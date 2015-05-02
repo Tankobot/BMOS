@@ -49,9 +49,9 @@ local passFd = login:add(cx-4, cy+3, 10, 1)
 
 login:set(lgHello, colors.blue, colors.white, colors.blue) --Version
 login:setText(lgHello, version, 2, 2)
-login:set(userFd, nil, colors.lightGrey) --User Feed
+login:set(userFd, nil, colors.lightGray) --User Feed
 login:setText(userFd, "Username")
-login:set(passFd, nil, colors.lightGrey) --Pass Feed
+login:set(passFd, nil, colors.lightGray) --Pass Feed
 login:setText(passFd, "Password")
 
 gui.drawLayers(bg, login)
