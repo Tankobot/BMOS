@@ -64,7 +64,7 @@ local function addTextBox(self, x, y, l, h, vertical) --Adds interactive text bo
 	local id = #self.obj+1
 	local textBox = {
 		type = "textBox",
-		vert = vertical
+		vert = vertical,
 		id = #self.obj+1,
 		x = x,
 		y = y,
