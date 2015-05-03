@@ -38,7 +38,7 @@ end
 local function add(self, x, y, l, h) --Allows for the addition of a new gui object into the set. 
 	local id = #self.obj+1
 	local button = {
-		type = "button",
+		f = nil,
 		id = #self.obj+1,
 		x = x,
 		y = y,
@@ -57,32 +57,6 @@ local function add(self, x, y, l, h) --Allows for the addition of a new gui obje
 		self.lastid = #self.obj+1
 	end
 	self.obj[id] = button
-	return id
-end
-
-local function addTextBox(self, x, y, l, h, vertical) --Adds interactive text box to layer.
-	local id = #self.obj+1
-	local textBox = {
-		type = "textBox",
-		vert = vertical,
-		id = #self.obj+1,
-		x = x,
-		y = y,
-		l = l,
-		h = h,
-		
-		bg = colors.white,
-		fg = colors.black,
-		cc = colors.white,
-		text = "",
-		tx = 1,
-		ty = 1,
-		click = false
-	}
-	if #self.obj+1>self.lastid then 
-		self.lastid = #self.obj+1
-	end
-	self.obj[id] = textBox
 	return id
 end
 
@@ -136,8 +110,10 @@ local function checkSet(self, event, wait)
 				obj.click = true
 				alarm = os.startTimer(wait)
 				self.timeID[alarm] = obj.id
-				--TODO Checking for text boxes. 
-				return true, obj.id
+				if obj.f then 
+					local feedback = {obj.f(obj)}
+				end
+				return true, obj.id, unpack(feedback or {})
 			end
 		end
 	end
@@ -157,6 +133,30 @@ local function img(image, x, y)
 	assert(image.type == "cci", "Image is not a supported format.")
 	for i=1, #image do 
 		for j=1, #image[i] do 
+			--TODO
+		end
+	end
+end
+
+local function setF(self, id, func)
+	local obj = self.obj[id]
+	if func then
+		obj.f = func
+	else
+		return obj.f
+	end
+end
+
+--Preset Object Functions
+
+local function textBox(obj)
+	local typing = true
+	local typed = {}
+	while typing do
+		local event = {os.pullEvent()}
+		if event[1] == "char" then
+			table.insert(typed, event[2])
+		elseif event[1] == "key" then
 			--TODO
 		end
 	end
