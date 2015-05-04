@@ -64,6 +64,8 @@ while true do
 	event = event or {os.pullEvent()}
 	if event[1] == "mouse_click" then
 		temp, event = login:checkSet(event)
+	else
+		event = nil
 	end
 	if type(event) == "table" then
 		event = event
