@@ -46,6 +46,7 @@ local login = gui.createSet()
 local lgHello = login:add(cx-5, cy-3, 12, 3)
 local userFd = login:add(cx-4, cy+1, 10, 1)
 local passFd = login:add(cx-4, cy+3, 10, 1)
+local go = login:add(cx-2, cy+5, 6, 1)
 
 login:set(lgHello, colors.blue, colors.white, colors.blue) --Version
 login:setText(lgHello, version, 2, 2)
@@ -53,17 +54,24 @@ login:set(userFd, nil, colors.lightGray) --User Feed
 login:setText(userFd, "Username")
 login:set(passFd, nil, colors.lightGray) --Pass Feed
 login:setText(passFd, "Password")
+login:set(go, colors.red, nil, colors.pink) --Go Button
+login:setText(go, "GO", 3)
 
 login:setF(userFd, gui.f.textBox)
 login:setF(passFd, gui.f.textBox)
 
+bg:draw()
 local event
 while true do
-	gui.drawLayers(bg, login)
+	login:draw()
 	local temp
 	event = event or {os.pullEvent()}
 	if event[1] == "mouse_click" then
 		temp, event = login:checkSet(event)
+	elseif event[1] == "timer" then
+		event = login:checkTime(event, 1)
+		sleep(0.25)
+		break
 	else
 		event = nil
 	end
@@ -73,3 +81,9 @@ while true do
 		event = nil
 	end
 end
+
+term.setBackgroundColor(colors.black)
+term.setTextColor(colors.white)
+term.clear()
+term.setCursorPos(1,1)
+print("Loggin in.")

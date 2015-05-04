@@ -49,6 +49,7 @@ local function add(self, x, y, l, h) --Allows for the addition of a new gui obje
 	local id = #self.obj+1
 	local button = {
 		f = nil,
+		meta = {},
 		id = #self.obj+1,
 		x = x,
 		y = y,
@@ -72,6 +73,10 @@ end
 
 local function rm(self, id) --Allows for the removal of a gui object. 
 	self.obj[id] = nil
+end
+
+local function meta(self, id, key, entry)
+	--TODO
 end
 
 local function set(self, id, bg, fg, cc) --Allows for the setting of a gui object. 
@@ -160,29 +165,52 @@ end
 --Preset Object Functions
 
 local function textBox(obj, term)
+	local meta = obj.meta
 	local typing = true
-	local typed = {}
+	local typed = meta.typed or {}
+	meta.pre = meta.pre or obj.text
 	local space = " "
 	local stX = obj.x+obj.tx-1
 	local stY = obj.y+obj.ty-1
-	local areaX = obj.l-obj.tx
+	local areaX = obj.l-obj.tx+1
 	term.setCursorBlink(true)
 	term.setCursorPos(stX, stY)
 	term.setBackgroundColor(obj.bg)
-	term.setTextColor(obj.fg)
+	term.setTextColor(meta.color or colors.black)
 	while typing do
 		local event = {os.pullEvent()}
+		local view
+		if #typed < 9 then
+			view = #typed
+		else
+			view = 9
+		end
+		
 		if event[1] == "char" then
 			table.insert(typed, event[2])
 		elseif event[1] == "key" then
 			if event[2] == 28 then
 				term.setCursorBlink(false)
+				meta.typed = typed
+				if not (#typed > 0) then
+					obj.text = meta.pre
+				else
+					obj.text = table.concat(typed, nil, 1, view)
+				end
 				return true, table.concat(typed)
+			elseif event[2] == 14 then
+				table.remove(typed)
 			end
 			--TODO
 		elseif event[1] == "mouse_click" then
 			if not check(event, obj) then
 				term.setCursorBlink(false)
+				meta.typed = typed
+				if not (#typed > 0) then
+					obj.text = meta.pre
+				else
+					obj.text = table.concat(typed, nil, 1, view)
+				end
 				return true, event
 			end
 		end
@@ -195,7 +223,7 @@ local function textBox(obj, term)
 			term.setCursorPos(stX, stY)
 			term.write(space:rep(areaX))
 			term.setCursorPos(stX, stY)
-			term.write(table.concat(typed, "", 1-areaX))
+			term.write(table.concat(typed, "", #typed-areaX+2))
 		end
 	end
 end
