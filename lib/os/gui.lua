@@ -5,6 +5,16 @@ Description: A generic API that can be used in order to build a simple to comple
 
 assert(term, "The gui library requires the term library to be loaded.")
 
+local function check(click, obj)
+	local up = (click[3] >= obj.y)
+	local down = (click[3] < obj.y+obj.h)
+	local left = (click[2] >= obj.x)
+	local right = (click[2] < obj.x+obj.l)
+	if up and down and left and right then 
+		return true
+	end
+end
+
 --Gui object functions. 
 
 local function draw(self) --Redraws the screen including any changes to the gui set. 
@@ -111,7 +121,7 @@ local function checkSet(self, event, wait)
 				alarm = os.startTimer(wait)
 				self.timeID[alarm] = obj.id
 				if obj.f then 
-					local feedback = {obj.f(obj)}
+					local feedback = {obj.f(obj, self.term)}
 				end
 				return true, obj.id, unpack(feedback or {})
 			end
@@ -149,15 +159,42 @@ end
 
 --Preset Object Functions
 
-local function textBox(obj)
+local function textBox(obj, term)
 	local typing = true
 	local typed = {}
+	local stX = obj.x+obj.tx-1
+	local stY = obj.y+obj.ty-1
+	local areaX = obj.x+obj.l-obj.tx
+	term.setCursorBlink(true)
+	term.setCursorPos(stX, stY)
+	term.setBackgroundColor(obj.bg)
+	term.setTextColor(obj.fg)
 	while typing do
 		local event = {os.pullEvent()}
 		if event[1] == "char" then
 			table.insert(typed, event[2])
 		elseif event[1] == "key" then
+			if event[2] == 28 then
+				term.setCursorBlink(false)
+				return true, table.concat(typed)
+			end
 			--TODO
+		elseif event[1] == "mouse_click" then
+			if not check(event, obj) then
+				term.setCursorBlink(false)
+				return false, table.concat(typed) 
+			end
+		end
+		if #typed < (areaX) then
+			term.setCursorPos(stX, stY)
+			term.write(" ":rep(areaX))
+			term.setCursorPos(stX, stY)
+			term.write(table.concat(typed))
+		else
+			term.setCursorPos(stX, stY)
+			term.write(" ":rep(areaX))
+			term.setCursorPos(stX, stY)
+			term.write(table.concat(typed, "", 1-areaX)
 		end
 	end
 end
@@ -214,6 +251,9 @@ end
 --[[]]--
 
 local gui = {
+	f = {
+		textBox = textBox,
+	},
 	createSet = createSet,
 	drawLayers = drawLayers,
 	center = center
