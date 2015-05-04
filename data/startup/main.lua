@@ -54,5 +54,20 @@ login:setText(userFd, "Username")
 login:set(passFd, nil, colors.lightGray) --Pass Feed
 login:setText(passFd, "Password")
 
-gui.drawLayers(bg, login)
-os.pullEvent("char")
+login:setF(userFd, gui.f.textBox)
+login:setF(passFd, gui.f.textBox)
+
+local event
+while true do
+	gui.drawLayers(bg, login)
+	local temp
+	event = event or {os.pullEvent()}
+	if event[1] == "mouse_click" then
+		temp, event = login:checkSet(event)
+	end
+	if type(event) == "table" then
+		event = event
+	else
+		event = nil
+	end
+end

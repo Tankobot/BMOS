@@ -162,9 +162,10 @@ end
 local function textBox(obj, term)
 	local typing = true
 	local typed = {}
+	local space = " "
 	local stX = obj.x+obj.tx-1
 	local stY = obj.y+obj.ty-1
-	local areaX = obj.x+obj.l-obj.tx
+	local areaX = obj.l-obj.tx
 	term.setCursorBlink(true)
 	term.setCursorPos(stX, stY)
 	term.setBackgroundColor(obj.bg)
@@ -182,19 +183,19 @@ local function textBox(obj, term)
 		elseif event[1] == "mouse_click" then
 			if not check(event, obj) then
 				term.setCursorBlink(false)
-				return false, table.concat(typed) 
+				return true, event
 			end
 		end
 		if #typed < (areaX) then
 			term.setCursorPos(stX, stY)
-			term.write(" ":rep(areaX))
+			term.write(space:rep(areaX))
 			term.setCursorPos(stX, stY)
 			term.write(table.concat(typed))
 		else
 			term.setCursorPos(stX, stY)
-			term.write(" ":rep(areaX))
+			term.write(space:rep(areaX))
 			term.setCursorPos(stX, stY)
-			term.write(table.concat(typed, "", 1-areaX)
+			term.write(table.concat(typed, "", 1-areaX))
 		end
 	end
 end
@@ -215,6 +216,7 @@ local function createSet(monitor) --Allows for the creation of a gui set.
 		timer = timer,
 		checkSet = checkSet,
 		checkTime = checkTime,
+		setF = setF,
 		lastid = 0
 	}
 	if monitor then 
@@ -256,7 +258,7 @@ local gui = {
 	},
 	createSet = createSet,
 	drawLayers = drawLayers,
-	center = center
+	center = center,
 }
 
 return gui
