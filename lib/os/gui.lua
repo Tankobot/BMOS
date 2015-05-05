@@ -195,7 +195,7 @@ local function textBox(obj, term)
 				if not (#typed > 0) then
 					obj.text = meta.pre
 				else
-					obj.text = table.concat(typed, nil, 1, view)
+					obj.text = table.concat(typed, nil, 1, view)..">"
 				end
 				return true, table.concat(typed)
 			elseif event[2] == 14 then
@@ -209,7 +209,7 @@ local function textBox(obj, term)
 				if not (#typed > 0) then
 					obj.text = meta.pre
 				else
-					obj.text = table.concat(typed, nil, 1, view)
+					obj.text = table.concat(typed, nil, 1, view)..">"
 				end
 				return true, event
 			end
