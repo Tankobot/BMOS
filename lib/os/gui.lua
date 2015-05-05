@@ -177,6 +177,7 @@ local function textBox(obj, term, mask)
 	local stX = obj.x+obj.tx-1
 	local stY = obj.y+obj.ty-1
 	local areaX = obj.l-obj.tx+1
+	local strEnd = " "
 	term.setCursorBlink(true)
 	term.setCursorPos(stX, stY)
 	term.setBackgroundColor(obj.bg)
@@ -184,10 +185,10 @@ local function textBox(obj, term, mask)
 	while typing do
 		local event = {os.pullEvent()}
 		local view
-		if #typed < 9 then
+		if #typed < areaX-1 then
 			view = #typed
 		else
-			view = 9
+			view = areaX-1
 		end
 		
 		if event[1] == "char" then
@@ -199,7 +200,7 @@ local function textBox(obj, term, mask)
 				if not (#typed > 0) then
 					obj.text = meta.pre
 				else
-					obj.text = table.concat(typed, nil, 1, view)
+					obj.text = table.concat(typed, nil, 1, view)..strEnd
 				end
 				return true, table.concat(typed)
 			elseif event[2] == 14 then
@@ -213,7 +214,7 @@ local function textBox(obj, term, mask)
 				if not (#typed > 0) then
 					obj.text = meta.pre
 				else
-					obj.text = table.concat(typed, nil, 1, view)
+					obj.text = table.concat(typed, nil, 1, view)..strEnd
 				end
 				return true, event
 			end
@@ -228,6 +229,11 @@ local function textBox(obj, term, mask)
 			term.write(space:rep(areaX))
 			term.setCursorPos(stX, stY)
 			term.write(table.concat(typed, "", #typed-areaX+2))
+		end
+		if #typed > areaX-1 then
+			strEnd = ">"
+		else
+			strEnd = " "
 		end
 	end
 end
