@@ -48,6 +48,7 @@ end
 local function add(self, x, y, l, h) --Allows for the addition of a new gui object into the set. 
 	local id = #self.obj+1
 	local button = {
+		arg = {},
 		f = nil,
 		meta = {},
 		id = #self.obj+1,
@@ -126,9 +127,9 @@ local function checkSet(self, event, wait)
 				alarm = os.startTimer(wait)
 				self.timeID[alarm] = obj.id
 				if obj.f then 
-					local feedback = {obj.f(obj, self.term)}
+					local feedback = {obj.f(obj, self.term, unpack(obj.arg))}
 				end
-				return true, obj.id, unpack(feedback or {})
+				return obj.id, unpack(feedback or {})
 			end
 		end
 	end
@@ -153,10 +154,11 @@ local function img(image, x, y)
 	end
 end
 
-local function setF(self, id, func)
+local function setF(self, id, func, ...)
 	local obj = self.obj[id]
 	if func then
 		obj.f = func
+		obj.arg = {...}
 	else
 		return obj.f
 	end
@@ -164,10 +166,12 @@ end
 
 --Preset Object Functions
 
-local function textBox(obj, term)
+local function textBox(obj, term, mask)
 	local meta = obj.meta
 	local typing = true
 	local typed = meta.typed or {}
+	local masked = meta.masked or {}
+	meta.mask = mask
 	meta.pre = meta.pre or obj.text
 	local space = " "
 	local stX = obj.x+obj.tx-1
