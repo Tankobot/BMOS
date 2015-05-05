@@ -181,10 +181,10 @@ local function textBox(obj, term)
 	while typing do
 		local event = {os.pullEvent()}
 		local view
-		if #typed < 9 then
+		if #typed < areaX-1 then
 			view = #typed
 		else
-			view = 9
+			view = areaX-1
 		end
 		
 		if event[1] == "char" then
@@ -226,7 +226,7 @@ local function textBox(obj, term)
 			term.setCursorPos(stX, stY)
 			term.write(table.concat(typed, "", #typed-areaX+2))
 		end
-		if #typed > view then
+		if #typed > areaX then
 			strEnd = ">"
 		else
 			strEnd = " "
