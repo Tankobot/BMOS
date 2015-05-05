@@ -226,7 +226,7 @@ local function textBox(obj, term)
 			term.setCursorPos(stX, stY)
 			term.write(table.concat(typed, "", #typed-areaX+2))
 		end
-		if #typed > areaX then
+		if #typed > areaX-1 then
 			strEnd = ">"
 		else
 			strEnd = " "
