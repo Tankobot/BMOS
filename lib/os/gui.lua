@@ -128,7 +128,7 @@ local function checkSet(self, event, wait)
 				if obj.f then 
 					local feedback = {obj.f(obj, self.term)}
 				end
-				return true, obj.id, unpack(feedback or {})
+				return obj.id, unpack(feedback or {})
 			end
 		end
 	end
