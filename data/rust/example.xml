@@ -1,7 +1,14 @@
 <?doctype web?>
 <web>
-	<title>Example Webpage</title>
-	<body>
-		
+	<title>Rust Example Webpage</title>
+	<meta>
+		<version>v0.01</version>
+		<loc>/example.xml</loc>
+		<native>rust</native>
+	</meta>
+	<body x="1" y="1">
+		<text>Text</text>
 	</body>
+	<line rep="3"/>
+	<lua link="www.botsbots.com/virus.lua"/>
 </web>
