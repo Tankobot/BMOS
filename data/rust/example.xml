@@ -1,14 +1,7 @@
 <?doctype web?>
 <web>
-	<var>
-		box 460
-	</var>
-	<title>
-		Example Webpage 
-	</title>
+	<title>Example Webpage</title>
 	<body>
-		<p>
-			Hello world. 
-		</p>
+		
 	</body>
 </web>
