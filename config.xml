@@ -1,0 +1,17 @@
+<?doctype config?>
+
+<root>
+	<l type="number">51</l>
+	<h type="number">16</h>
+	<emu type="boolean">true</emu>
+	<hostname type="string">Tankobot-WS</hostname>
+	<ua type="string">00-00-00-00</ua>
+	<dns type="string">www.botsbots.com/dns</dns>
+	<style type="table">
+		<bg type="number">0</bg>
+		<fg type="number">63</fg>
+	</style>
+	<startup type="table">
+		<_1 type="string">/startup/main.lua</_1>
+	</startup>
+</root>
