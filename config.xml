@@ -13,8 +13,9 @@
 		<tag></tag>
 	</crypt>
 	<style type="table">
-		<bg type="number">0</bg>
-		<fg type="number">63</fg>
+		<bg type="string">colors.lightBlue</bg>
+		<fg type="string">colors.blue</fg>
+		<tx type="string">colors.black</tx>
 	</style>
 	<startup type="table">
 		<last type="string">/startup/main.lua</last>
