@@ -17,6 +17,6 @@
 		<fg type="number">63</fg>
 	</style>
 	<startup type="table">
-		<_1 type="string">/startup/main.lua</_1>
+		<last type="string">/startup/main.lua</last>
 	</startup>
 </root>
