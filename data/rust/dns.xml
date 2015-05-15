@@ -1,0 +1,8 @@
+<?doctype dns_list?>
+
+<dns>
+	<dns.down>
+		<ip>1.1.1.1</ip>
+		<exp></exp>
+	</dns.down>
+</dns>
