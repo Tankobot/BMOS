@@ -5,8 +5,11 @@
 	<h type="number">16</h>
 	<emu type="boolean">true</emu>
 	<hostname type="string">anonymous</hostname>
-	<ua type="string">00-00-00-00</ua>
-	<hard_ua type="string">00-00-00-00</hard_ua>
+	<ua type="table">
+		<_>0:0</_>
+		<_>1:3</_>
+		<_>2:2</_>
+	</ua>
 	<dns type="string">dns.botsbots.com</dns>
 	<crypt type="table" enabled="false">
 		<key>private</key>
