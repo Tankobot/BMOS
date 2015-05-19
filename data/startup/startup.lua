@@ -3,7 +3,7 @@ Title: Startup
 --]]
 
 local lib = loadfile("lib/os/lib.lua")("lib/", "os/")
-local task = lib.load("task.lua")
+local task = lib.load("task.lua") --Load necessary libraries 
 local gui = lib.load("gui.lua")
 assert(colors, "Colors library required.")
 assert(io, "Io library required.")
@@ -12,7 +12,7 @@ local x, y = term.getSize()
 local cx, cy = gui.center()
 local version = "BMOS v0.1a"
 
-if ((x<51) or (y<19)) and not pocket then
+if ((x<51) or (y<19)) and not pocket then --Check monitor size 
 	write([[Screen size of 51x19 or greater 
 	recommended for desktop version. 
 	Continue anyway (y/n)?]])
@@ -38,7 +38,7 @@ elseif ((x<26) or (y<20)) and pocket then
 	end
 end
 
-local bg = gui.createSet()
+local bg = gui.createSet() --Setup login prompt 
 local bgBack = bg:add(1, 1, x, y)
 bg:set(bgBack, colors.lightBlue, nil, colors.lightBlue)
 
@@ -62,24 +62,25 @@ login:setF(passFd, gui.f.textBox)
 
 bg:draw()
 local event
-while true do
+while true do --Main loop 
 	login:draw()
 	local temp
 	event = event or {os.pullEvent()}
 	if event[1] == "mouse_click" then
-		temp, event = login:checkSet(event)
+		temp, temp, event = login:checkSet(event)
 	elseif event[1] == "timer" then
 		event = login:checkTime(event, 1)
 		sleep(0.25)
 		break
-	else
-		event = nil
 	end
-	if type(event) == "table" then
+	event = event or {}
+	if event[1] == "mouse_click" then
 		event = event
 	else
 		event = nil
 	end
+	
+	
 end
 
 term.setBackgroundColor(colors.black)
