@@ -6,10 +6,10 @@ Description: A generic API that can be used in order to build a simple to comple
 assert(term, "The gui library requires the term library to be loaded.")
 
 local function check(click, obj)
-	local up = (click[3] >= obj.y)
-	local down = (click[3] < obj.y+obj.h)
-	local left = (click[2] >= obj.x)
-	local right = (click[2] < obj.x+obj.l)
+	local up = (click[4] >= obj.y)
+	local down = (click[4] < obj.y+obj.h)
+	local left = (click[3] >= obj.x)
+	local right = (click[3] < obj.x+obj.l)
 	if up and down and left and right then 
 		return true
 	end
