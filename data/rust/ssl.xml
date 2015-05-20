@@ -1,0 +1,9 @@
+<?doctype SSL Settings?>
+
+<ssl>
+	<private></private>
+	<public></public>
+	<cipher>
+		
+	</cipher>
+</ssl>

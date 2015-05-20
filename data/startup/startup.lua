@@ -65,22 +65,21 @@ local event
 while true do --Main loop 
 	login:draw()
 	local temp
-	event = event or {os.pullEvent()}
+	local id
+	event = {os.pullEvent()}
 	if event[1] == "mouse_click" then
-		temp, temp, event = login:checkSet(event)
+		while (type(event)=="table") and (event[1]=="mouse_click") do
+			id, temp, event = login:checkSet(event)
+		end
 	elseif event[1] == "timer" then
 		event = login:checkTime(event, 1)
 		sleep(0.25)
 		break
 	end
-	event = event or {}
-	if event[1] == "mouse_click" then
-		event = event
-	else
-		event = nil
+	
+	if (id==userFd) and (type(event)=="string") then
+		
 	end
-	
-	
 end
 
 term.setBackgroundColor(colors.black)
