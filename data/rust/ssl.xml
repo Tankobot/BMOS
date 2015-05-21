@@ -4,6 +4,6 @@
 	<private></private>
 	<public></public>
 	<cipher>
-		
+		<sign>bmos-default</sign>
 	</cipher>
 </ssl>
