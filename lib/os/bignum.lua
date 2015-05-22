@@ -32,11 +32,11 @@ end
 
 --Arithmetic Operators 
 
-local function add(a, b)
+local function add(a, b, dig)
 	
 end
 
-local function sub(a, b)
+local function sub(a, b, dig)
 	
 end
 
@@ -48,15 +48,15 @@ local function div(a, b)
 	
 end
 
-local function unm(a, b)
+local function unm(a)
 	
 end
 
-local function mod(a, b)
+local function mod(a, b, dig)
 	
 end
 
-local function pow(a, b)
+local function pow(a, b, dig)
 	
 end
 
