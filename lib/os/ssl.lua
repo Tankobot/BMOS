@@ -1,8 +1,11 @@
+---
+--@module ssl
 --Library used for SSL communication, ComputerCraft. 
 
 cipher = ...
 
---Extra Math Functions 
+---
+--#Extra Math Functions 
 
 local function mod_pow(base, exponent, modulus)
 	local c=1
@@ -52,8 +55,13 @@ local function mod_inv(a, m)
 	end
 end
 
---Cryption Functions 
+--- Cryption Functions 
 
+---
+-- @param p, Prime number
+-- @param q, Prime number
+-- @return e, Public exponentation key 
+-- @return d, Private exponentation key
 local function genKeyPair(p, q)
 	assert(type(p)=="number", "Expected #1 arg number!")
 	assert(type(q)=="number", "Expected #2 arg number!")
@@ -71,7 +79,8 @@ local function hash(str, seed)
 	
 end
 
---SSL Functions 
+---
+--#SSL Functions 
 
 local function connect(host, ip, cert)
 	
@@ -81,18 +90,16 @@ local function load(info)
 	
 end
 
+---
 --Return Library 
-
 local ssl = {
 	math = {
 		mod_pow = mod_pow,
 	},
-	--Cryption 
 	genKeyPair = genKeyPair,
 	encrypt = encrypt,
 	decrypt = decrypt,
 	hash = hash,
-	--SSL Func
 	connect = connect,
 	load = load,
 }
