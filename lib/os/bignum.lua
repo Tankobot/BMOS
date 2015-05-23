@@ -100,7 +100,7 @@ local function int(a)
 	end
 	a = tostring(a)
 	local num = {}
-	for i=1, (a:len+13-(a:len()%13)) do
+	for i=1, (a:len()+13-(a:len()%13)) do
 		num[i] = string.sub(a, 13*i-12, 13*i)
 	end
 	local tab = {

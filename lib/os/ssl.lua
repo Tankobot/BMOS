@@ -86,7 +86,7 @@ end
 local ssl = {
 	math = {
 		mod_pow = mod_pow,
-	}
+	},
 	--Cryption 
 	genKeyPair = genKeyPair,
 	encrypt = encrypt,
