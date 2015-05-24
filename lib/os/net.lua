@@ -13,7 +13,7 @@ local function wrap(side)
 end
 
 local function open(startPort, endPort)
-	assert(net.modem, "A modem must be wrapped to the net library.")
+	assert(modem, "A modem must be wrapped to the net library.")
 	local s
 	if startPort <= endPort then 
 		s = 1

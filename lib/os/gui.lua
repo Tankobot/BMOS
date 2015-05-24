@@ -1,6 +1,8 @@
 --[[
 Title: Graphical User Interface API 
-Description: A generic API that can be used in order to build a simple to complex user interface and handle events associated with such. 
+Description: A generic API that can be used in order to 
+build a simple to complex user interface and handle events 
+associated with such. 
 --]]
 
 assert(term, "The gui library requires the term library to be loaded.")
@@ -17,7 +19,8 @@ end
 
 --Gui object functions. 
 
-local function draw(self) --Redraws the screen including any changes to the gui set. 
+--Redraws the screen including any changes to the gui set.
+local function draw(self)  
 	local term = self.term
 	for id=self.lastid,1,-1 do
 		local obj = self.obj[id]
@@ -45,7 +48,8 @@ local function draw(self) --Redraws the screen including any changes to the gui 
 	end
 end
 
-local function add(self, x, y, l, h) --Allows for the addition of a new gui object into the set. 
+--Allows for the addition of a new gui object into the set.
+local function add(self, x, y, l, h)  
 	local id = #self.obj+1
 	local button = {
 		arg = {},
@@ -77,10 +81,12 @@ local function rm(self, id) --Allows for the removal of a gui object.
 end
 
 local function meta(self, id, key, entry)
-	--TODO
+	local obj = self.obj[id]
+	obj[key] = entry
 end
 
-local function set(self, id, bg, fg, cc) --Allows for the setting of a gui object. 
+--Allows for the setting of a gui object.
+local function set(self, id, bg, fg, cc)  
 	assert(type(id) == "number", "Expected number id arg#1.")
 	local pos = self.obj[id]
 	bg = bg or pos.bg --Set color defaults.
@@ -103,14 +109,17 @@ local function timer(self, id, tID)
 	self.timeID[tID]=id
 end
 
-local function repos(self, id, x, y, l, w) --Allows for the translocation of a gui object. 
+--Allows for the translocation of a gui object.
+local function repos(self, id, x, y, l, w)  
 	self.obj[id].x = x
 	self.obj[id].y = y
 	self.obj[id].l = l
 	self.obj[id].h = h
 end
 
-local function clear(self) --Allows for the removal of all gui objects in a gui set without deleting the entire table itself. 
+--Allows for the removal of all gui objects in a 
+--gui set without deleting the entire table itself.
+local function clear(self)  
 	self.obj = nil
 	self.obj = {}
 	self.lastid = 0
@@ -122,7 +131,8 @@ local function checkSet(self, event, wait)
 	for i=self.lastid, 1, -1 do 
 		local obj = self.obj[i]
 		if obj then
-			if ((obj.x <= event[3]) and (obj.x+obj.l-1 >= event[3])) and ((obj.y <= event[4]) and (obj.y+obj.h-1 >= event[4])) then
+			if ((obj.x <= event[3]) and (obj.x+obj.l-1 >= event[3]) 
+			and (obj.y <= event[4]) and (obj.y+obj.h-1 >= event[4])) then
 				obj.click = true
 				alarm = os.startTimer(wait)
 				self.timeID[alarm] = obj.id
@@ -206,7 +216,6 @@ local function textBox(obj, term, mask)
 			elseif event[2] == 14 then
 				table.remove(typed)
 			end
-			--TODO
 		elseif event[1] == "mouse_click" then
 			if not check(event, obj) then
 				term.setCursorBlink(false)

@@ -16,86 +16,86 @@ end
 
 --[[lua-users.org/wiki/CopyTable]]--
 local function deepcopy(orig)
-    local orig_type = type(orig)
-    local copy
-    if orig_type == 'table' then
-        copy = {}
-        for orig_key, orig_value in next, orig, nil do
-            copy[deepcopy(orig_key)] = deepcopy(orig_value)
-        end
-        setmetatable(copy, deepcopy(getmetatable(orig)))
-    else -- number, string, boolean, etc
-        copy = orig
-    end
-    return copy
+	local orig_type = type(orig)
+	local copy
+	if orig_type == 'table' then
+		copy = {}
+		for orig_key, orig_value in next, orig, nil do
+			copy[deepcopy(orig_key)] = deepcopy(orig_value)
+		end
+		setmetatable(copy, deepcopy(getmetatable(orig)))
+	else -- number, string, boolean, etc
+		copy = orig
+	end
+	return copy
 end
 
---Arithmetic Operators 
+--Arithmetic Operators
 
 local function add(a, b, dig)
-	
+
 end
 
 local function sub(a, b, dig)
-	
+
 end
 
 local function mul(a, b)
-	
+
 end
 
 local function div(a, b)
-	
+
 end
 
 local function unm(a)
-	
+
 end
 
 local function mod(a, b, dig)
-	
+
 end
 
 local function pow(a, b, dig)
-	
+
 end
 
 local function concat(a, b)
-	
+
 end
 
---Equivalence Comparison Operators 
+--Equivalence Comparison Operators
 
 local function eq(a, b)
-	
+
 end
 
 local function lt(a, b)
-	
+
 end
 
 local function le(a, b)
-	
+
 end
 
---Other Methods 
+--Other Methods
 
 local function call(a)
-	
+
 end
 
 local function m_tostring(a)
-	
+
 end
 
 local function m_len(a)
-	
+
 end
 
---Number Creation 
+--Number Creation
 
 local function int(a)
-	if type(a)=="int" then 
+	if type(a)=="int" then
 		return deepcopy(a)
 	end
 	a = tostring(a)
@@ -108,7 +108,7 @@ local function int(a)
 		unpack(num),
 	}
 	local meta = {
-		--Arithmetic Operators 
+		--Arithmetic Operators
 		__add = add,
 		__sub = sub,
 		__mul = mul,
@@ -117,11 +117,11 @@ local function int(a)
 		__mod = mod,
 		__pow = pow,
 		__concat = concat,
-		--Equivalence Comparison Operators 
+		--Equivalence Comparison Operators
 		__eq = eq,
 		__lt = lt,
 		__le = le,
-		--Other Methods 
+		--Other Methods
 		__call = call,
 		__tostring = m_tostring,
 		__len = m_len,
@@ -129,10 +129,10 @@ local function int(a)
 	setmetatable(tab, meta)
 end
 
---Declare Library Table 
+--Declare Library Table
 
 local ipl = {
-	--Arithmetic Operators 
+	--Arithmetic Operators
 	add = add,
 	sub = sub,
 	mul = mul,
@@ -141,15 +141,15 @@ local ipl = {
 	mod = mod,
 	pow = pow,
 	concat = concat,
-	--Equivalence Comparison Operators 
+	--Equivalence Comparison Operators
 	eq = eq,
 	lt = lt,
 	le = le,
-	--Other Methods 
+	--Other Methods
 	call = call,
 	m_tostring = m_tostring,
 	m_len = m_len,
-	--Number Creation 
+	--Number Creation
 	int = int,
 }
 
