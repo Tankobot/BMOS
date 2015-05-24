@@ -3,7 +3,7 @@ Title: Computercraft Task Manager
 Author: Tankobot 
 Version: 0.1 
 --]]
-
+--TODO optimize task manager
 arg = {...}
 assert(arg[1] and arg[2],"Usage: program <path> <name>")
 
