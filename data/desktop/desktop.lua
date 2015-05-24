@@ -6,7 +6,7 @@ local gui = lib.load("gui.lua")
 
 local x, y = term.getSize()
 local cx, cy = gui.center()
-local bg, fg = unpack(bmos.style.desktop)
+local bg, tx, fg = unpack(bmos.style.desktop)
 
 local backg = {set = gui.createSet()} --Setup layer 
 do
