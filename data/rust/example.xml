@@ -10,5 +10,5 @@
 		<text>Text</text>
 	</body>
 	<line rep="3"/>
-	<lua link="www.botsbots.com/virus.lua"/>
+	<lua l="5" h="5">www.botsbots.com/greet.lua</lua>
 </web>

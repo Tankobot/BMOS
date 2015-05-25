@@ -63,7 +63,7 @@ end
 
 --Encode Table to String
 local function encode(tableFile)
---TODO
+--TODO cci encode
 end
 
 --Inefficient way of easily rendering a cc image to the screen.
