@@ -4,6 +4,10 @@ assert(bmos, "BMOS library not present!")
 
 local gui = lib.load("gui.lua")
 
+--[[local function icon_C(obj, event)
+	local up = 
+end--]]
+
 local x, y = term.getSize()
 local cx, cy = gui.center()
 local bg, tx, fg = unpack(bmos.style.desktop)
@@ -22,5 +26,7 @@ end
 
 --[[while true do --Main Loop
 	local event = {os.pullEvent()}
-	if event[1]==
+	if event[1]=="mouse_click" then
+		
+	end
 end--]]
