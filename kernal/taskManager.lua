@@ -4,6 +4,7 @@ Author: Tankobot
 Version: 0.1 
 --]]
 --TODO optimize task manager
+--TODO taskmngr rule injection 
 arg = {...}
 assert(arg[1] and arg[2],"Usage: program <path> <name>")
 
