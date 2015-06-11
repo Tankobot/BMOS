@@ -12,7 +12,11 @@ http://patorjk.com/software/taag/
 
 local function handler(bool, msg, ...)
 	if not bool then 
-		
+		if msg:find("attempt to call nil") then
+			
+		elseif msg:find("Too long without yielding") then
+			
+		end
 	end
 end
 
