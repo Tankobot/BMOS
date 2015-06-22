@@ -1,1 +1,1 @@
-dofile("startup.lua")
+dofile("data/startup/startup.lua")
