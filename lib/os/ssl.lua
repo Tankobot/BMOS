@@ -2,9 +2,13 @@
 
 local cipher = ...
 
+local ssl = {}
+
 --Extra Math Functions 
 
-local function mod_pow(base, exponent, modulus)
+ssl.math = {}
+
+function ssl.math.mod_pow(base, exponent, modulus)
 	local c=1
 	for e_prime=1, exponent do
 		c=(c*base)%modulus
@@ -12,7 +16,7 @@ local function mod_pow(base, exponent, modulus)
 	return c
 end
 
-local function mod_gcd(a, b)
+function ssl.math.mod_gcd(a, b)
 	local x,y, u,v = 0,1, 1,0
 	local q, r, m, n
 	while a ~= 0 do
@@ -43,7 +47,7 @@ end
 	end
 end--]]
 
-local function mod_inv(a, m)
+function ssl.math.mod_inv(a, m)
 	local gcd, x, y = mod_gcd(a, m)
 	if gcd ~= 1 then
 		return false
@@ -54,45 +58,33 @@ end
 
 --Cryption Functions 
 
-local function genKeyPair(p, q)
+function ssl.genKeyPair(p, q)
 	assert(type(p)=="number", "Expected #1 arg number!")
 	assert(type(q)=="number", "Expected #2 arg number!")
 end
 
-local function encrypt(str, key)
+function ssl.encrypt(str, key)
 	
 end
 
-local function decrypt(str, key)
+function ssl.decrypt(str, key)
 	
 end
 
-local function hash(str, seed)
+function ssl.hash(str, salt)
 	
 end
 
 --SSL Functions 
 
-local function connect(host, ip, cert)
+function ssl.connect(host, ip, cert)
 	
 end
 
-local function load(info)
+function ssl.pull(info)
 	
 end
 
 --Return Library 
-
-local ssl = {
-	math = {
-		mod_pow = mod_pow,
-	},
-	genKeyPair = genKeyPair,
-	encrypt = encrypt,
-	decrypt = decrypt,
-	hash = hash,
-	connect = connect,
-	load = load,
-}
 
 return ssl

@@ -1,8 +1,8 @@
 --[[
 Title: Infinite* Precision Library (IPL) 
 Description: A pure lua implementation 
-of a number crunching library, that works 
-up to numbers of 13*(array limit) digits. 
+of a bit crunching library, that works 
+up to numbers of unknown amounts. 
 --]]
 
 local Ntype = type
