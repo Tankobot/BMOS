@@ -62,10 +62,14 @@ login:setF(passFd, gui.f.textBox)
 
 bg:draw()
 local event
+local userIn
+local passIn
+
 while true do --Main loop 
 	login:draw()
 	local temp
 	local id
+	
 	event = {os.pullEvent()}
 	if event[1] == "mouse_click" then
 		while (type(event)=="table") and (event[1]=="mouse_click") do
@@ -78,7 +82,11 @@ while true do --Main loop
 	end
 	
 	if (id==userFd) and (type(event)=="string") then
-		
+		userIn = event
+	end
+	
+	if (id==passFd) and (type(event)=="string") then
+		passIn = event
 	end
 end
 
