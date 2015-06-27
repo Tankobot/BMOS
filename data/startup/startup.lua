@@ -70,16 +70,35 @@ while true do --Main loop
 	local temp
 	local id
 	
+	--[[term.setTextColor(colors.green)
+	term.setCursorPos(1,1)
+	print(event)--Debug
+	sleep(5)--Debug--]]
+	
 	event = {os.pullEvent()}
+	
+	--[[term.setCursorPos(1,1)
+	print(unpack(event))--Debug
+	sleep(5)--Debug--]]
+	
 	if event[1] == "mouse_click" then
 		while (type(event)=="table") and (event[1]=="mouse_click") do
 			id, temp, event = login:checkSet(event)
+			login:draw()
 		end
 	elseif event[1] == "timer" then
 		event = login:checkTime(event, 1)
 		sleep(0.25)
 		break
 	end
+	
+	--[[term.setTextColor(colors.green)
+	term.setCursorPos(1,1)
+	print(id.." "..userFd)--Debug
+	print(id.." "..passFd)
+	print(temp or "nil")
+	print(event or "nil")
+	sleep(5)--]]
 	
 	if (id==userFd) and (type(event)=="string") then
 		userIn = event
@@ -94,4 +113,6 @@ term.setBackgroundColor(colors.black)
 term.setTextColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
-print("Loggin in.")
+print("Logged in.")
+print("User: "..userIn)--Debug
+print("Pass: "..passIn)--Debug
