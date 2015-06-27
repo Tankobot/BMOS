@@ -15,13 +15,13 @@ local bg, tx, fg = unpack(bmos.style.desktop)
 local backg = {set = gui.createSet()} --Setup layer
 do
 	local layer = backg.set
-	local desktop = layer.add(1, 1, x, y-1) --Background
-	local actionBar = layer.add(1, y, x, 1) --Home Button
+	backg.desktop = layer.add(1, 1, x, y-1) --Background
+	backg.actionBar = layer.add(1, y, x, 1) --Home Button
 
-	layer:set(desktop, bg, tx, bg)
-	layer:set(actionBar, fg, tx, fg)
+	layer:set(backg.desktop, bg, tx, bg)
+	layer:set(backg.actionBar, fg, tx, fg)
 
-	layer:setText(actionBar, ("%"):rep(x))
+	layer:setText(backg.actionBar, ("%"):rep(x))
 end
 
 --[[while true do --Main Loop
