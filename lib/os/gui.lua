@@ -110,7 +110,7 @@ local function timer(self, id, tID)
 end
 
 --Allows for the translocation of a gui object.
-local function repos(self, id, x, y, l, w)  
+local function repos(self, id, x, y, l, h)  
 	self.obj[id].x = x
 	self.obj[id].y = y
 	self.obj[id].l = l
@@ -134,10 +134,11 @@ local function checkSet(self, event, wait)
 			if ((obj.x <= event[3]) and (obj.x+obj.l-1 >= event[3]) 
 			and (obj.y <= event[4]) and (obj.y+obj.h-1 >= event[4])) then
 				obj.click = true
-				alarm = os.startTimer(wait)
+				local alarm = os.startTimer(wait)
 				self.timeID[alarm] = obj.id
+				local feedback
 				if obj.f then 
-					local feedback = {obj.f(obj, self.term, unpack(obj.arg))}
+					feedback = {obj.f(obj, self.term, unpack(obj.arg))}
 				end
 				return obj.id, unpack(feedback or {})
 			end
@@ -176,7 +177,7 @@ end
 
 --Preset Object Functions
 
-local function textBox(obj, term, mask)
+local function textBox(obj, term, mask) --TODO textBox mask
 	local meta = obj.meta
 	local typing = true
 	local typed = meta.typed or {}
