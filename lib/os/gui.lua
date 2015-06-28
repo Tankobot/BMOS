@@ -127,7 +127,7 @@ end
 
 local function checkSet(self, event, wait) 
 	assert(type(event) == "table", "Event is not a table.")
-	wait = wait or 0.5
+	wait = wait or 0.2
 	for i=self.lastid, 1, -1 do 
 		local obj = self.obj[i]
 		if obj then
@@ -152,7 +152,7 @@ local function checkTime(self, alarm)
 	local id = self.timeID[timer]
 	if self.obj[id] then
 		self.obj[id].click = false
-		return true
+		return true, id
 	end
 end
 
@@ -175,6 +175,13 @@ local function setF(self, id, func, ...)
 	end
 end
 
+local function startF(self, id, ...)
+	local obj = self.obj[id]
+	if obj.f then
+		return obj.f(obj, self.term, ...)
+	end
+end
+
 --Preset Object Functions
 
 local function textBox(obj, term, mask) --TODO textBox mask
@@ -193,6 +200,19 @@ local function textBox(obj, term, mask) --TODO textBox mask
 	term.setCursorPos(stX, stY)
 	term.setBackgroundColor(obj.bg)
 	term.setTextColor(meta.color or colors.black)
+	
+	if #typed < (areaX) then
+		term.setCursorPos(stX, stY)
+		term.write(space:rep(areaX))
+		term.setCursorPos(stX, stY)
+		term.write(table.concat(typed))
+	else
+		term.setCursorPos(stX, stY)
+		term.write(space:rep(areaX))
+		term.setCursorPos(stX, stY)
+		term.write(table.concat(typed, "", #typed-areaX+2))
+	end
+	
 	while typing do
 		local event = {os.pullEvent()}
 		local view
@@ -205,7 +225,7 @@ local function textBox(obj, term, mask) --TODO textBox mask
 		if event[1] == "char" then
 			table.insert(typed, event[2])
 		elseif event[1] == "key" then
-			if event[2] == 28 then
+			if (event[2] == keys.enter) or (event[2] == 1) then
 				term.setCursorBlink(false)
 				meta.typed = typed
 				if not (#typed > 0) then
@@ -216,6 +236,15 @@ local function textBox(obj, term, mask) --TODO textBox mask
 				return true, table.concat(typed)
 			elseif event[2] == 14 then
 				table.remove(typed)
+			elseif event[2] == keys.tab then
+				term.setCursorBlink(false)
+				meta.typed = typed
+				if not (#typed > 0) then
+					obj.text = meta.pre
+				else
+					obj.text = table.concat(typed, nil, 1, view)..strEnd
+				end
+				return "\t", table.concat(typed)
 			end
 		elseif event[1] == "mouse_click" then
 			if not check(event, obj) then
@@ -265,6 +294,7 @@ local function createSet(monitor) --Allows for the creation of a gui set.
 		checkSet = checkSet,
 		checkTime = checkTime,
 		setF = setF,
+		startF = startF,
 		lastid = 0
 	}
 	if monitor then 
