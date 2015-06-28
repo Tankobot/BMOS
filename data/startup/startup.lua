@@ -67,38 +67,24 @@ local passIn
 
 while true do --Main loop 
 	login:draw()
-	local temp
+	local state
 	local id
 	
-	--[[term.setTextColor(colors.green)
-	term.setCursorPos(1,1)
-	print(event)--Debug
-	sleep(5)--Debug--]]
-	
 	event = {os.pullEvent()}
-	
-	--[[term.setCursorPos(1,1)
-	print(unpack(event))--Debug
-	sleep(5)--Debug--]]
-	
+		
 	if event[1] == "mouse_click" then
-		while (type(event)=="table") and (event[1]=="mouse_click") do
-			id, temp, event = login:checkSet(event)
-			login:draw()
-		end
+		id, state, event = login:checkSet(event)
+		login:draw()
 	elseif event[1] == "timer" then
-		event = login:checkTime(event, 1)
-		sleep(0.25)
-		break
+		local condition, id = login:checkTime(event)
+		if condition and (id==go) then
+			break
+		end
+	elseif event[1] == "tab" then
+		local args = login.obj[event[2]].arg or {}
+		id = event[2]
+		state, event = login:startF(event[2], unpack(args))
 	end
-	
-	--[[term.setTextColor(colors.green)
-	term.setCursorPos(1,1)
-	print(id.." "..userFd)--Debug
-	print(id.." "..passFd)
-	print(temp or "nil")
-	print(event or "nil")
-	sleep(5)--]]
 	
 	if (id==userFd) and (type(event)=="string") then
 		userIn = event
@@ -107,6 +93,11 @@ while true do --Main loop
 	if (id==passFd) and (type(event)=="string") then
 		passIn = event
 	end
+	
+	if state == "\t" then
+		local idNew = id+1
+		os.queueEvent("tab", idNew)
+	end
 end
 
 term.setBackgroundColor(colors.black)
@@ -114,5 +105,5 @@ term.setTextColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
 print("Logged in.")
-print("User: "..userIn)--Debug
-print("Pass: "..passIn)--Debug
+print("User: "..(userIn or ""))--Debug
+print("Pass: "..(passIn or ""))--Debug
