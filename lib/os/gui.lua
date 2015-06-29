@@ -255,7 +255,7 @@ local function textBox(obj, term, mask) --TODO textBox mask
 				else
 					obj.text = table.concat(typed, nil, 1, view)..strEnd
 				end
-				return true, event
+				return false, event
 			end
 		end
 		if #typed < (areaX) then

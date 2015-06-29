@@ -23,30 +23,25 @@ local function tabIndex(tab, ...)
 	return tab
 end
 
+--[[]]--
+
+local xml
+
 --Read XML file. 
-local open
-local xload
-local pull
-
-local function open(path)
-	local tab = io.open(path, "r")
-	tab["load"] = xload
-	tab["pull"] = pull
-	return tab
-end
-
-local function xload(self)
-	local tab = {}
-	--TODO Xml loader
-end
-
 local function pull(self)
 	--TODO Xml event check
 end
 
---Creating XML file. 
+function xml.open(path)
+	local tab = io.open(path, "r")
+	tab["pull"] = pull
+	return tab
+end
 
-local function create(filename, root, doctype)
+--Creating XML file. 
+local element, body, stop, writeFile
+
+function xml.create(filename, root, doctype)
 	assert(type(filename)=="string", 
 		"Filename, expected string got, "..type(filename))
 	local tab = {
@@ -58,6 +53,7 @@ local function create(filename, root, doctype)
 		element = element,
 		body = body,
 		stop = stop,
+		writeFile = writeFile,
 	}
 	return tab
 end
@@ -88,13 +84,10 @@ local function stop(self)
 end
 
 --Write xml file to path or string. 
-local function writeXML(self, file)
+local function writeFile(self, path)
 	
 end
 
 --Return library. 
 
-local xml = {
-	open = open,
-	create = create,
-}
+return xml
