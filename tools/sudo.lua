@@ -9,7 +9,7 @@ local _SUDO = _G
 local func = loadfile(cdir.."/"..arg[1])
 bmos.logout()
 io.write("Password: ")
-local pass = read()
+local pass = read("*")
 local check, info = pcall(bmos.login, "root", pass)
 
 if not check then 
