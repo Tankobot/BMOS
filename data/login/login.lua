@@ -1,3 +1,17 @@
+--TEMP START
+
+local lib = loadfile("lib/os/lib.lua")("lib/", "os/")
+local task = lib.load("task.lua") --Load necessary libraries 
+local gui = lib.load("gui.lua")
+assert(colors, "Colors library required.")
+assert(io, "Io library required.")
+
+local x, y = term.getSize()
+local cx, cy = gui.center()
+local version = "BMOS v0.1a"
+
+--TEMP END
+
 local bg = gui.createSet() --Setup login prompt 
 local bgBack = bg:add(1, 1, x, y)
 bg:set(bgBack, colors.lightBlue, nil, colors.lightBlue)
