@@ -17,9 +17,9 @@
       <lib name="task" version="0.1"/>
     </folder>
   </folder>
-  <user name="config.xml"/>
+  <user name="config.xml" fill=""/>
   <file name="README.md" version="0.1"/>
   <system name="startup" version="0.1" ext=""/>
   <system name="update" version="0.1"/>
-  <system name="version"/>
+  <system name="version" ext=".xml"/>
 </root>
