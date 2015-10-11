@@ -151,6 +151,11 @@ end
 local nrawg, nraws = rawget, rawset
 rawget, rawset = nil, nil
 
+--Time to actually start doing things! 
+
+local main = loadfile(...)
+run.addThread("main", main, "base")
+
 while true do
 	break
 end
