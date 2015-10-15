@@ -146,7 +146,7 @@ local function nget(tab, index) --Build in better alternative later
 	return tab[index]
 end
 local function nset(tab, index, value)
-	return tab
+	tab[index] = value
 end
 local nrawg, nraws = rawget, rawset
 rawget, rawset = nil, nil
