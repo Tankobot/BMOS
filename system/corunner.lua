@@ -143,10 +143,18 @@ local gmeta = {
 setmetatable(_G, gmeta)
 
 local function nget(tab, index) --Build in better alternative later
-	return tab[index]
+	if tab==_G then
+		return tab[index]
+	else
+		return rawget(tab, index)
+	end
 end
 local function nset(tab, index, value)
-	return tab
+	if tab==_G then
+		tab[index] = value
+	else 
+		rawset(tab, index, value)
+	end
 end
 local nrawg, nraws = rawget, rawset
 rawget, rawset = nil, nil
