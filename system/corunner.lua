@@ -12,7 +12,7 @@ Take commands from running coroutines
 --]]
 
 local perm = {
-	main = {
+	base = {
 		file = true,
 		requestPerm = true,
 		addPermLevel = true,
@@ -31,11 +31,13 @@ local envs = {
 	main = {},
 }
 
-local function checkPerm(perm)
-	return perm[threads[current]][perm]
+local current
+
+function checkPerm(permis)
+	return perm[threads[current]][permis]
 end
 
-local current
+local checkPerm = checkPerm
 
 local resume = coroutine.resume
 local function qresume(...)
@@ -48,18 +50,18 @@ function run.requestPerm(name)
 	if not checkPerm("requestPerm") then
 		return qresume("Permission denied")
 	end
-	if not perm.main[name] then
+	if not perm.base[name] then
 		return qresume("Permission does not exist")
 	end
 	term.clear()
 	term.setCursorPos(1, 1)
-	print("Program \""..current.."\" is requestion permission \""..name.."\"")
+	print("Program \""..current.."\" is requesting permission \""..name.."\"")
 	print("Allow access? (y/n)")
 	local input = string.lower(io.read())
 	if input=="y" then
-		run.addPerm(current, name)
+		perm[current][name] = true
 	elseif input=="n" then
-		run.remPerm(current, name)
+		perm[current][name] = false
 		return qresume("User denied")
 	end
 end
@@ -71,25 +73,25 @@ function run.addPermLevel(name, set)
 	perm[name] = set
 end
 
-function run.addPerm(cor, name)
+function run.addPerm(coro, name)
 	if not checkPerm("addPerm") then
 		return qresume("Permission denied")
 	end
-	perm[cor][name] = true
+	perm[coro][name] = true
 end
 
-function run.remPerm(cor, name)
+function run.remPerm(coro, name)
 	if not checkPerm("remPerm") then
 		return qresume("Permission denied")
 	end
-	perm[cor][name] = false
+	perm[coro][name] = false
 end
 
-function run.inject(func)
+function run.inject(funcStr)
 	if not checkPerm("inject") then
 		return qresume("Permission denied")
 	end
-	func()
+	load(funcStr)()
 end
 
 function run.addThread(name, func, permLevel)
@@ -102,8 +104,7 @@ function run.addThread(name, func, permLevel)
 	if threads[name] then
 		return qresume("Thread already exists")
 	end
-	local cor = coroutine.create(func)
-	threads[name] = func
+	threads[name] = coroutine.create(func)
 end
 
 function run.clean()
@@ -156,8 +157,11 @@ local function nset(tab, index, value)
 		rawset(tab, index, value)
 	end
 end
+
 local nrawg, nraws = rawget, rawset
 rawget, rawset = nil, nil
+
+setmetatable(_G, gmeta)
 
 --Time to actually start doing things! 
 

@@ -6,7 +6,7 @@ Bot's Mobile Operating System, CC Lua.
 
 |Version|Status        |
 |-------|--------------|
-|v1.0   |In development|
+|0.1-a  |In development|
 
 ## Current Goals
 
